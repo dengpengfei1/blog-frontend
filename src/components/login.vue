@@ -13,6 +13,9 @@
 </template>
 
 <script>
+import axios from 'axios'
+import Qs from 'qs'
+
 export default {
   data () {
     return {
@@ -25,7 +28,18 @@ export default {
   },
   methods: {
     submitForm () {
-      console.log('login')
+      if (!this.formLabelAlign.name || !this.formLabelAlign.pass) {
+        this.$message({
+          message: '请输入用户名密码',
+          type: 'warning'
+        })
+        return
+      }
+      axios.post('/blog/register', {
+        data: this.formLabelAlign
+      }).then(res => {
+        console.log(res)
+      })
     }
   }
 }
